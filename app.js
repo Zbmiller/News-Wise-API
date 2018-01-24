@@ -4,16 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var exp hbs = require('express-handlebars');
+var exphbs = require('express-handlebars');
 
+/////////////////////requirements to route to pages////////////////////////
 var index = require('./routes/index');
 var users = require('./routes/users');
 var news = require('./routes/news');
+var popular = require('./routes/popular');
 
 var app = express();
 
 // view engine setup
-app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -25,10 +27,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+////////////////////////////////////page routes///////////////////////////////////////
+var apiRouter = require("./routes/apiRoutes.js")
 app.use('/', index);
 app.use('/users', users);
 app.use('/recentnews', news);
+app.use('/popular', popular);
+app.use('/api', apiRouter);
+// app.use('/popular', popular)
 
+//////////////////////////////////////requirements for API routes//////////////////////////
+
+
+
+///////////////////////////////////////////////error handling//////////////////////////////////
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

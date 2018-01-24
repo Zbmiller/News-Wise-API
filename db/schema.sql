@@ -1,0 +1,15 @@
+DROP DATABASE IF EXISTS newsWise_DB;
+CREATE DATABASE newsWise_DB;
+
+USE newsWise_DB;
+
+CREATE TABLE articles(
+	id INT NOT NULL AUTO_INCREMENT,
+	popular INT(10) DEFAULT 0,
+	title TEXT NOT NULL,
+	url TEXT NOT NULL,
+	author VARCHAR(100),
+	site VARCHAR(100) NOT NULL,
+	text TEXT NOT NULL,
+	PRIMARY KEY (id)
+);
